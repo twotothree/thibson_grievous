@@ -1,4 +1,3 @@
-import math
 from typing import Tuple
 
 import cv2 as cv
@@ -9,27 +8,22 @@ import utils
 FPS = 20
 
 
-def distance(p1: Tuple[int, int], p2: Tuple[int, int]):
-    """Calculate distance between two points.
-    """
-    x1, y1 = p1
-    x2, y2 = p2
-
-    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-
-
 def create_circle_mask(shape: Tuple[int, int, int], center: Tuple[int, int], radius: float):
     """Create a mask containing a fading out circle.
     """
     mask = np.zeros(shape, dtype=np.float32)
 
-    for x in range(shape[0]):
-        for y in range(shape[1]):
+    # x = [[0, 0, ..., 0], [1, 1, ..., 1], ...] and y = [[0, 1, 2, ..., y], [0, 1, 2, ..., y], ...]
+    x, y = np.mgrid[0:shape[0], 0:shape[1]]
 
-            d = distance((x, y), center)
-
-            if d < radius:
-                mask[x, y, :] = 1 - d / radius
+    # calculate matrix of distances from center
+    distances = np.sqrt((x - center[0]) ** 2 + (y - center[1]) ** 2)
+    # extend x*y array to x*y*3 (add channels)
+    channel_distances = np.repeat(distances[:, :, np.newaxis], 3, axis=2)
+    # only update where condition is met
+    update_mask = channel_distances < radius
+    # value of the cell is proportional to its distance from center
+    mask[update_mask] = (1 - channel_distances / radius)[update_mask]
 
     return mask
 
