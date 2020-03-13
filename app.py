@@ -4,7 +4,7 @@ This script downloads the Grievous Collection submissions from u/thibson34, alig
 composes them in a video file.
 """
 
-from stages import downloader, composer, annotator, aligner
+from stages import downloader, composer, annotator, aligner, resizer
 
 
 def main():
@@ -14,6 +14,9 @@ def main():
     if not new_downloads:
         print("No new submissions, exiting.")
         return
+
+    print("Resizing images ...")
+    resizer.main()
 
     print("Aligning images ...")
     aligner.main()

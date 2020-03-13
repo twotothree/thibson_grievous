@@ -3,6 +3,7 @@ praw.ini
 data/aligned/*
 data/annotated/*
 data/downloaded/*
+data/resized/*
 !/**/.gitkeep
 data/grievous.mp4
 

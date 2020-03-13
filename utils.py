@@ -2,6 +2,7 @@ import os
 from typing import List
 
 DOWNLOAD_LOCATION = "data/downloaded/"
+RESIZED_LOCATION = "data/resized/"
 ALIGNED_LOCATION = "data/aligned/"
 ANNOTATED_LOCATION = "data/annotated/"
 
