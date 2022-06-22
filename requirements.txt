@@ -3,7 +3,7 @@ chardet==3.0.4
 cycler==0.10.0
 idna==2.9
 kiwisolver==1.1.0
-numpy==1.18.1
+numpy==1.22.0
 opencv-python==4.2.0.32
 Pillow==7.0.0
 praw==6.5.1
